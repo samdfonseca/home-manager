@@ -67,6 +67,7 @@ in
       zinit snippet OMZP::git
       zinit snippet OMZP::command-not-found
       zinit snippet OMZP::eza
+      zinit snippet OMZP::aws
 
       # Completions
       autoload -Uz compinit && compinit
