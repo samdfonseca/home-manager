@@ -29,7 +29,7 @@ in
   programs.zsh = {
     enable = true;
     autosuggestion.enable = false;
-    dotDir = ".config/zsh";
+    dotDir = "${config.xdg.configHome}/zsh";
 
     history = {
       path = "${config.xdg.dataHome}/zsh/zsh_history";
@@ -44,7 +44,7 @@ in
 
     defaultKeymap = "viins";
 
-    initExtra = ''
+    initContent = ''
       # Reduce mode switch delay (default is 0.4s)
       export KEYTIMEOUT=1
 
