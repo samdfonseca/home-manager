@@ -6,7 +6,7 @@
 vim.o.exrc = true
 vim.o.secure = true
 
-vim.opt.clipboard = "unnamedplus"
+-- vim.opt.clipboard = "unnamedplus"
 
 -- Use OSC 52 for clipboard (works over SSH and inside tmux)
 local osc52 = require("vim.ui.clipboard.osc52")
