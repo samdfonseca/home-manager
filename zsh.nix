@@ -73,6 +73,9 @@ in
       # vicmd: j/k → basic sequential history navigation
       bindkey -M vicmd 'k' up-line-or-history
       bindkey -M vicmd 'j' down-line-or-history
+
+      # Mise (dev tool version manager)
+      eval "$(mise activate zsh)"
     '';
   };
 }
