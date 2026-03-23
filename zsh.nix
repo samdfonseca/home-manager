@@ -7,7 +7,7 @@ in
   programs.atuin = {
     enable = true;
     enableZshIntegration = true;
-    flags = [ "--disable-up-arrow" ];
+    flags = [ ];
     settings = {
       keymap_mode = "vim-normal";
       enter_accept = true;
@@ -21,9 +21,14 @@ in
     enableZshIntegration = true;
   };
 
+  programs.eza = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
   programs.zsh = {
     enable = true;
-    autosuggestion.enable = true;
+    autosuggestion.enable = false;
     dotDir = ".config/zsh";
 
     history = {
@@ -76,6 +81,7 @@ in
 
       # Mise (dev tool version manager)
       eval "$(mise activate zsh)"
+      eval "$(mise completion zsh)"
     '';
   };
 }

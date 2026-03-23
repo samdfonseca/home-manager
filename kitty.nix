@@ -1,6 +1,12 @@
 { config, pkgs, ... }:
 
 {
+  xdg.configFile."kitty/quick-access-terminal.conf".text = ''
+    lines 80
+    edge top
+    background_opacity 1.0
+  '';
+
   programs.kitty = {
     enable = true;
 
@@ -43,6 +49,7 @@
       "ctrl+shift+equal" = "change_font_size all +1.0";
       "ctrl+shift+minus" = "change_font_size all -1.0";
       "ctrl+shift+0" = "change_font_size all 0";
+      "f1" = "kitten quick_access_terminal";
     };
   };
 }
