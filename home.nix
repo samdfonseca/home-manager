@@ -29,7 +29,6 @@
     pkgs.ripgrep
     pkgs.fd
     pkgs.jq
-    pkgs.neovim
     pkgs.page
     pkgs.luajit
     pkgs.bat
