@@ -31,7 +31,6 @@
     pkgs.jq
     pkgs.neovim
     pkgs.page
-    pkgs.neovim
     pkgs.luajit
     pkgs.bat
     pkgs.curl
