@@ -33,7 +33,6 @@
     pkgs.page
     pkgs.neovim
     pkgs.luajit
-    pkgs.lua5_5
     pkgs.bat
     pkgs.curl
     pkgs.htop
