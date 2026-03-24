@@ -26,6 +26,18 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
+    pkgs.ripgrep
+    pkgs.fd
+    pkgs.jq
+    pkgs.neovim
+    pkgs.page
+    pkgs.neovim
+    pkgs.luajit
+    pkgs.lua5_5
+    pkgs.bat
+    pkgs.curl
+    pkgs.htop
+
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
