@@ -69,6 +69,7 @@ in
       zinit snippet OMZP::eza
       zinit snippet OMZP::aws
       zinit snippet OMZP::uv
+      zinit snippet OMZP::rust
 
       # Completions
       autoload -Uz compinit && compinit

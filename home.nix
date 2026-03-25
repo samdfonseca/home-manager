@@ -34,6 +34,7 @@
     pkgs.bat
     pkgs.curl
     pkgs.htop
+    pkgs.nerd-fonts
 
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
