@@ -102,4 +102,33 @@
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+  programs.keychain = {
+    enable = true;
+    enableZshIntegration = true;
+    agents = [ "ssh" ];
+    inheritType = "any";
+  };
+
+  programs.atuin = {
+    enable = true;
+    enableZshIntegration = true;
+    flags = [ ];
+    settings = {
+      keymap_mode = "vim-normal";
+      enter_accept = true;
+      filter_mode = "host";
+      search_mode = "fuzzy";
+    };
+  };
+
+  programs.zoxide = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
+  programs.eza = {
+    enable = true;
+    enableZshIntegration = true;
+  };
 }
