@@ -106,8 +106,6 @@
   programs.keychain = {
     enable = true;
     enableZshIntegration = true;
-    agents = [ "ssh" ];
-    inheritType = "any";
   };
 
   programs.atuin = {
