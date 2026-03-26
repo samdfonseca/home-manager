@@ -23,4 +23,6 @@ return {
   -- { import = "astrocommunity.ai.opencode-nvim" },
   { import = "astrocommunity.utility.lua-json5" },
   -- import/override with your plugins folder
+  { import = "astrocommunity.recipes.picker-nvchad-theme" },
+  { import = "astrocommunity.recipes.picker-lsp-mappings" },
 }

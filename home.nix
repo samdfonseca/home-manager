@@ -8,6 +8,7 @@
     ./starship.nix
     ./i3.nix
     ./neovim.nix
+    ./ipython.nix
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.

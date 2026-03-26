@@ -1,4 +1,5 @@
 -- lua/plugins/ansible.lua
+---@type LazySpec
 return {
   -- Ensure the server is installed
   {
