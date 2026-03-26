@@ -37,6 +37,7 @@
     pkgs.htop
     pkgs.deno
     pkgs.regclient
+    pkgs.manifest-tool
 
     pkgs.nerd-fonts.jetbrains-mono
     pkgs.nerd-fonts.zed-mono
