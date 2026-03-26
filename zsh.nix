@@ -51,6 +51,7 @@ in
 
       # Completions
       autoload -Uz compinit && compinit
+      autoload -Uz bashcompinit && bashcompinit
       zinit cdreplay -q
 
       # vicmd: up/down → atuin interactive history search

@@ -35,6 +35,8 @@
     pkgs.bat
     pkgs.curl
     pkgs.htop
+    pkgs.deno
+
     pkgs.nerd-fonts.jetbrains-mono
     pkgs.nerd-fonts.zed-mono
     pkgs.nerd-fonts.fira-code
