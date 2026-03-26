@@ -36,6 +36,7 @@
     pkgs.curl
     pkgs.htop
     pkgs.deno
+    pkgs.regclient
 
     pkgs.nerd-fonts.jetbrains-mono
     pkgs.nerd-fonts.zed-mono
