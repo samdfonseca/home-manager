@@ -6,8 +6,8 @@ return {
         n_prefix = 1024,
         n_suffix = 1024, -- Fixed typo: was n_siffix
         auto_fim = false, -- Enable automatic suggestions as you type
-        endpoint_fim = 'http://localhost:8001/infill',
-        endpoint_inst = 'http://localhost:8001/v1/chat/completions',
+        endpoint_fim = 'http://server-workstation-26:8001/infill',
+        endpoint_inst = 'http://server-workstation-26:8001/v1/chat/completions',
         show_info = 1,
         -- Custom keymaps to avoid blink.cmp conflicts
         keymap_fim_accept_full = '<C-y>',    -- Accept full suggestion

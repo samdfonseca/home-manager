@@ -38,6 +38,7 @@
     pkgs.deno
     pkgs.regclient
     pkgs.manifest-tool
+    pkgs.solaar
 
     pkgs.nerd-fonts.jetbrains-mono
     pkgs.nerd-fonts.zed-mono
@@ -118,6 +119,7 @@
     enable = true;
     enableZshIntegration = true;
     flags = [ ];
+    daemon.enable = true;
     settings = {
       keymap_mode = "vim-normal";
       enter_accept = true;
