@@ -9,6 +9,8 @@
     ./i3.nix
     ./neovim.nix
     ./ipython.nix
+    ./gpg.nix
+    ./pass.nix
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -39,6 +41,9 @@
     pkgs.regclient
     pkgs.manifest-tool
     pkgs.solaar
+    pkgs.clang_22
+    pkgs.bear
+    pkgs.nodejs
 
     pkgs.nerd-fonts.jetbrains-mono
     pkgs.nerd-fonts.zed-mono
