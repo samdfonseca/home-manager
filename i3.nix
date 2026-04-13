@@ -14,8 +14,8 @@ in
       # font pango:monospace 10
       # font pango:SauceCodePro Nerd Font Mono Regular 10
       fonts = {
-        names = [ "Ubuntu Sans Mono Regular" ];
-        size = 10.0;
+        names = [ "SauceCodePro Nerd Font Mono Regular" ];
+        size = 12.0;
       };
 
       floating.modifier = mod;
@@ -23,6 +23,9 @@ in
       workspaceAutoBackAndForth = false;
 
       startup = [
+        { command = "/usr/bin/gnome-keyring-daemon --start --components=secrets"; notification = false; }
+        { command = "/usr/local/amazon/sbin/acmed-session.sh"; notification = false; }
+        { command = "/usr/bin/user-hooks"; notification = false; }
         # Start XDG autostart .desktop files using dex
         { command = "dex --autostart --environment i3"; notification = false; }
         # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the

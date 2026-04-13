@@ -44,6 +44,7 @@
     pkgs.clang_22
     pkgs.bear
     pkgs.nodejs
+    pkgs.lazygit
 
     pkgs.nerd-fonts.jetbrains-mono
     pkgs.nerd-fonts.zed-mono
@@ -116,7 +117,7 @@
 
   programs.keychain = {
     enable = true;
-    enableZshIntegration = true;
+    enableZshIntegration = false;
     keys = [ "id_ed25519" ];
   };
 

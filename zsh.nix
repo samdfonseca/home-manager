@@ -7,7 +7,7 @@ in
   programs.zsh = {
     enable = true;
     autosuggestion.enable = false;
-    dotDir = "${config.xdg.configHome}/zsh";
+    # dotDir = "${config.xdg.configHome}/zsh";
 
     history = {
       path = "${config.xdg.dataHome}/zsh/zsh_history";
@@ -23,6 +23,7 @@ in
     defaultKeymap = "viins";
 
     initContent = ''
+      export USER="''${USER:-safonse}"
       # Reduce mode switch delay (default is 0.4s)
       export KEYTIMEOUT=1
 
@@ -65,6 +66,18 @@ in
       # Mise (dev tool version manager)
       eval "$(mise activate zsh)"
       eval "$(mise completion zsh)"
+
+      # Keychain (use system id to resolve LDAP user)
+      eval "$(PATH="/usr/bin:$PATH" SHELL=zsh keychain --eval --quiet id_ed25519)"
+
+      # Module proxy configuration (BrazilMakeGo 3.0 handles this automatically)
+      export GOPROXY=direct  # Only needed for older BrazilMakeGo versions
+
+      # Private module configuration
+      export GOPRIVATE=golang.a2z.com
+
+      # Disable checksum database for internal modules
+      export GOSUMDB=off
     '';
   };
 }

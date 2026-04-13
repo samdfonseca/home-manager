@@ -6,7 +6,8 @@
     defaultEditor = true;
   };
 
-  xdg.configFile."nvim".source =
-    config.lib.file.mkOutOfStoreSymlink
-      "${config.home.homeDirectory}/.config/home-manager/nvim";
+  home.activation.linkNeovimConfig =
+    config.lib.dag.entryAfter [ "writeBoundary" ] ''
+      [ -L "$HOME/.config/nvim" ] || ln -sf "$HOME/.config/home-manager/nvim" "$HOME/.config/nvim"
+    '';
 }
