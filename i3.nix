@@ -5,6 +5,20 @@ let
   refresh_i3status = "killall -SIGUSR1 i3status";
 in
 {
+  home.packages = [ pkgs.brightnessctl ];
+
+  home.file.".config/X11/xorg.conf.d/40-libinput.conf".text = ''
+    Section "InputClass"
+        Identifier "libinput touchpad catchall"
+        MatchIsTouchpad "on"
+        MatchDevicePath "/dev/input/event*"
+        Driver "libinput"
+        Option "Tapping" "on"
+        Option "NaturalScrolling" "false"
+        Option "ClickMethod" "clickfinger"
+    EndSection
+  '';
+
   xsession.windowManager.i3 = {
     enable = true;
 
@@ -49,6 +63,10 @@ in
         "XF86AudioLowerVolume" = "exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && ${refresh_i3status}";
         "XF86AudioMute" = "exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && ${refresh_i3status}";
         "XF86AudioMicMute" = "exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && ${refresh_i3status}";
+
+        # Brightness controls
+        "XF86MonBrightnessUp" = "exec --no-startup-id brightnessctl set +5%";
+        "XF86MonBrightnessDown" = "exec --no-startup-id brightnessctl set 5%-";
 
         # Media controls
         "XF86AudioPlay" = "exec playerctl play-pause";
