@@ -33,6 +33,8 @@ in
         { command = "xss-lock --transfer-sleep-lock -- i3lock --nofork"; notification = false; }
         # NetworkManager system tray GUI
         { command = "nm-applet"; notification = false; }
+        # Set ultrawide to 100Hz
+        { command = "xrandr --output DP-2 --mode 3440x1440 --rate 100"; notification = false; }
         # { command = "dfzf-daemon"; notification = false; } # reboot to make the daemon running
         { command = ''i3-msg rename workspace 1 to "1: Dev"''; }
         { command = ''i3-msg rename workspace 2 to "2: Chrome"''; }
@@ -158,6 +160,10 @@ in
 
       bars = [
         {
+          fonts = {
+            names = [ "SauceCodePro Nerd Font Mono Regular" ];
+            size = 12.0;
+          };
           statusCommand = "i3status";
         }
       ];

@@ -7,6 +7,7 @@
     ./tmux.nix
     ./starship.nix
     ./i3.nix
+    ./picom.nix
     ./neovim.nix
     ./ipython.nix
     ./gpg.nix
