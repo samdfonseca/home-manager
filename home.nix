@@ -118,7 +118,7 @@
   programs.keychain = {
     enable = true;
     enableZshIntegration = false;
-    keys = [ "id_ed25519" ];
+    keys = [ "id_ecdsa" ];
   };
 
   programs.atuin = {

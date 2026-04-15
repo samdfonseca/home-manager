@@ -63,12 +63,11 @@ in
       bindkey -M vicmd 'k' up-line-or-history
       bindkey -M vicmd 'j' down-line-or-history
 
+      export PATH=$HOME/.toolbox/bin:$PATH
+
       # Mise (dev tool version manager)
       eval "$(mise activate zsh)"
       eval "$(mise completion zsh)"
-
-      # Keychain (use system id to resolve LDAP user)
-      eval "$(PATH="/usr/bin:$PATH" SHELL=zsh keychain --eval --quiet id_ed25519)"
 
       # Module proxy configuration (BrazilMakeGo 3.0 handles this automatically)
       export GOPROXY=direct  # Only needed for older BrazilMakeGo versions
