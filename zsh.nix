@@ -69,6 +69,9 @@ in
       eval "$(mise activate zsh)"
       eval "$(mise completion zsh)"
 
+      # gcloud completions (installed via mise)
+      source "$(mise where gcloud)/completion.zsh.inc"
+
       # Module proxy configuration (BrazilMakeGo 3.0 handles this automatically)
       export GOPROXY=direct  # Only needed for older BrazilMakeGo versions
 

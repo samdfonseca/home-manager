@@ -33,8 +33,8 @@ in
         { command = "xss-lock --transfer-sleep-lock -- i3lock --nofork"; notification = false; }
         # NetworkManager system tray GUI
         { command = "nm-applet"; notification = false; }
-        # Set ultrawide to 100Hz
-        { command = "xrandr --output DP-2 --mode 3440x1440 --rate 100"; notification = false; }
+        # Activate graphical-session.target so systemd user services (picom, etc.) start
+        { command = "systemctl --user start graphical-session.target"; notification = false; }
         # { command = "dfzf-daemon"; notification = false; } # reboot to make the daemon running
         { command = ''i3-msg rename workspace 1 to "1: Dev"''; }
         { command = ''i3-msg rename workspace 2 to "2: Chrome"''; }
@@ -173,6 +173,9 @@ in
       set $PATH $PATH:${config.home.homeDirectory}/.local/share/mise/shims
 
       tiling_drag modifier titlebar
+
+      # Set ultrawide to 100Hz
+      exec_always --no-startup-id xrandr --output DP-2 --mode 3440x1440 --rate 100
 
       bindcode ctrl+d exec rofi -show combi -combi-modes drun,run -modes combi
 

@@ -7,9 +7,10 @@
     vSync = true;
 
     settings = {
-      glx-no-stencil = true;
-      glx-no-rebind-pixmap = true;
       use-damage = true;
     };
   };
+
+  # Suppress startup error by ensuring graphical-session.target is fully active
+  systemd.user.services.picom.Unit.Requires = [ "graphical-session.target" ];
 }
