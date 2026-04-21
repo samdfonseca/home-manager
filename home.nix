@@ -48,6 +48,10 @@
     pkgs.nodejs
     pkgs.lazygit
     pkgs.neovide
+    pkgs.rofi
+    pkgs.xdotool
+    pkgs.skopeo
+    (pkgs.backblaze-b2.overridePythonAttrs { dontCheckRuntimeDeps = true; })
 
     pkgs.nerd-fonts.jetbrains-mono
     pkgs.nerd-fonts.zed-mono
@@ -105,7 +109,9 @@
   #  /etc/profiles/per-user/samfonseca/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-    # EDITOR = "emacs";
+    EDITOR = "nvim";
+    CC = "clang";
+    CXX = "clang++";
   };
 
   # Non-NixOS GPU support: makes host GPU drivers visible to Nix programs

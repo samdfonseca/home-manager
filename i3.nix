@@ -61,6 +61,7 @@ in
       ];
 
       keybindings = {
+        "${mod}+Shift+p" = "exec --no-startup-id ~/.local/bin/pw-picker.sh";
         # Volume controls (PulseAudio)
         "XF86AudioRaiseVolume" = "exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && ${refresh_i3status}";
         "XF86AudioLowerVolume" = "exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && ${refresh_i3status}";

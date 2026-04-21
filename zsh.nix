@@ -23,7 +23,12 @@ in
     defaultKeymap = "viins";
 
     initContent = ''
-      export USER="''${USER:-safonse}"
+      # When connected via SSH with agent forwarding, add keys to the
+      # forwarded agent rather than letting keychain start its own.
+      if [[ -n "''${SSH_CONNECTION}" && -n "''${SSH_AUTH_SOCK}" ]]; then
+        ssh-add -l &>/dev/null || ssh-add ~/.ssh/id_ed25519 2>/dev/null
+      fi
+
       # Reduce mode switch delay (default is 0.4s)
       export KEYTIMEOUT=1
 
@@ -42,6 +47,9 @@ in
       zinit light zsh-users/zsh-syntax-highlighting
       zinit light zsh-users/zsh-completions
 
+      # Prevent syntax-highlighting from stat-checking paths on slow NFS mount
+      ZSH_HIGHLIGHT_DIRS_BLACKLIST+=(/mnt/nas_mnt)
+
       # Snippets (OMZ libraries/plugins loaded as snippets)
       zinit snippet OMZP::git
       zinit snippet OMZP::command-not-found
@@ -54,6 +62,9 @@ in
       autoload -Uz compinit && compinit
       autoload -Uz bashcompinit && bashcompinit
       zinit cdreplay -q
+
+      # Exclude slow NFS mount from completion
+      zstyle ':completion:*' ignored-patterns '/mnt/nas_mnt|/mnt/nas_mnt/*'
 
       # vicmd: up/down → atuin interactive history search
       bindkey -M vicmd '^[[A' _atuin_search_widget
