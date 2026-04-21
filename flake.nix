@@ -5,7 +5,7 @@
     # Specify the source of Home Manager and Nixpkgs.
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -17,15 +17,21 @@
       pkgs = nixpkgs.legacyPackages.${system};
     in
     {
-      homeConfigurations."safonse" = home-manager.lib.homeManagerConfiguration {
+      homeConfigurations."samf-amazon" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-
-        # Specify your home configuration modules here, for example,
-        # the path to your home.nix.
         modules = [ ./home.nix ];
-
-        # Optionally use extraSpecialArgs
-        # to pass through arguments to home.nix
+        extraSpecialArgs = {
+          username = "safonse";
+          homeDirectory = "/home/ANT.AMAZON.COM/safonse";
+        };
+      };
+      homeConfigurations."samf-nzxt" = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        modules = [ ./home.nix ];
+        extraSpecialArgs = {
+          username = "samfonseca";
+          homeDirectory = "/home/samfonseca";
+        };
       };
     };
 }
