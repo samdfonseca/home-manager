@@ -47,6 +47,7 @@
     pkgs.bear
     pkgs.nodejs
     pkgs.lazygit
+    pkgs.neovide
 
     pkgs.nerd-fonts.jetbrains-mono
     pkgs.nerd-fonts.zed-mono

@@ -5,7 +5,10 @@ let
   refresh_i3status = "killall -SIGUSR1 i3status";
 in
 {
-  home.packages = [ pkgs.brightnessctl ];
+  home.packages = [
+    pkgs.brightnessctl
+    pkgs.pulseaudio  # provides pactl for volume keybindings
+  ];
 
   home.file.".config/X11/xorg.conf.d/40-libinput.conf".text = ''
     Section "InputClass"
