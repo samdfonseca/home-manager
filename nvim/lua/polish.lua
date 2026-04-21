@@ -6,6 +6,14 @@
 vim.o.exrc = true
 vim.o.secure = true
 
+if vim.g.neovide then
+  vim.g.neovide_cursor_animation_length = 0
+  vim.g.neovide_cursor_short_animation_length = 0
+  vim.g.neovide_position_animation_length = 0
+  vim.g.neovide_scroll_animation_length = 0
+  vim.g.neovide_cursor_vfx_mode = ""
+end
+
 -- vim.filetype.add {
 --   pattern = {
 --     [".*/%.github[%w/]+workflows[%w/]+.*%.ya?ml"] = "yaml.github",

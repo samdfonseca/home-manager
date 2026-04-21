@@ -16,6 +16,8 @@ return {
     config = function() require("lsp_signature").setup() end,
   },
 
+  { "stevearc/aerial.nvim", version = false },
+
   -- == Examples of Overriding Plugins ==
 
   -- customize dashboard options

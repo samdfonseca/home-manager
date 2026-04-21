@@ -52,6 +52,8 @@
     pkgs.xdotool
     pkgs.skopeo
     (pkgs.backblaze-b2.overridePythonAttrs { dontCheckRuntimeDeps = true; })
+    pkgs.zed-editor
+    pkgs.zeal
 
     pkgs.nerd-fonts.jetbrains-mono
     pkgs.nerd-fonts.zed-mono
