@@ -66,9 +66,11 @@ in
       # Exclude slow NFS mount from completion
       zstyle ':completion:*' ignored-patterns '/mnt/nas_mnt|/mnt/nas_mnt/*'
 
-      # vicmd: up/down → atuin interactive history search
+      # vicmd: up/down and page up/down → atuin interactive history search
       bindkey -M vicmd '^[[A' _atuin_search_widget
       bindkey -M vicmd '^[[B' _atuin_search_widget
+      bindkey -M vicmd '^[[5~' _atuin_search_widget
+      bindkey -M vicmd '^[[6~' _atuin_search_widget
 
       # vicmd: j/k → basic sequential history navigation
       bindkey -M vicmd 'k' up-line-or-history

@@ -1,4 +1,4 @@
-{ config, pkgs, username, homeDirectory, ... }:
+{ config, pkgs, lib, username, homeDirectory, nvidiaGpu, ... }:
 
 {
   imports = [
@@ -54,6 +54,8 @@
     (pkgs.backblaze-b2.overridePythonAttrs { dontCheckRuntimeDeps = true; })
     pkgs.zed-editor
     pkgs.zeal
+    pkgs.pv
+    pkgs.maim
 
     pkgs.nerd-fonts.jetbrains-mono
     pkgs.nerd-fonts.zed-mono
@@ -117,10 +119,10 @@
   };
 
   # Non-NixOS GPU support: makes host GPU drivers visible to Nix programs
-  targets.genericLinux.enable = true;
-  targets.genericLinux.gpu.nvidia = {
-    version = "580.126.09";
-    sha256 = "09pchs4lk2h8zpm8q2fqky6296h54knqi1vwsihzdpwaizj57b2c";
+  targets.genericLinux = {
+    enable = true;
+  } // lib.optionalAttrs (nvidiaGpu != null) {
+    gpu.nvidia = nvidiaGpu;
   };
 
   # Let Home Manager install and manage itself.

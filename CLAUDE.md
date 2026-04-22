@@ -33,7 +33,7 @@ home-manager switch --flake .
 ## Key Details
 
 - **Not NixOS** — this is a standalone home-manager setup on a regular Linux distro. `targets.genericLinux.enable = true` bridges the gap (GPU drivers, XDG dirs, etc.).
-- **NVIDIA GPU** — driver version and hash are pinned in `home.nix` under `targets.genericLinux.gpu.nvidia`. Update these when the host driver changes.
+- **NVIDIA GPU** — per-host: passed in via `nvidiaGpu` in `flake.nix` `extraSpecialArgs` (set for `samf-nzxt`, `null` for `samf-hp-elitebook`). Update the version/sha256 there when the host driver changes.
 - **stateVersion = "25.11"** — do not change this unless intentionally migrating (see home-manager release notes first).
 - **Nix language** — all config files are Nix expressions. Use `pkgs` for packages, `config` for self-referencing option values. Strings with interpolation use double-single-quotes (`''...''`), and `$` must be escaped as `''$` inside them.
 
