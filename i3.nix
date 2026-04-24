@@ -40,6 +40,7 @@ in
       workspaceAutoBackAndForth = false;
 
       startup = [
+        # { command = "/usr/bin/gnome-session"; notification = false; }
         { command = "/usr/bin/gnome-keyring-daemon --start --components=secrets"; notification = false; }
         { command = "/usr/local/amazon/sbin/acmed-session.sh"; notification = false; }
         { command = "/usr/bin/user-hooks"; notification = false; }
@@ -50,6 +51,8 @@ in
         { command = "xss-lock --transfer-sleep-lock -- i3lock --nofork"; notification = false; }
         # NetworkManager system tray GUI
         { command = "nm-applet"; notification = false; }
+        # Make DISPLAY/XAUTHORITY visible to systemd user services (autorandr-launcher, lid-watcher, etc.)
+        { command = "systemctl --user import-environment DISPLAY XAUTHORITY"; notification = false; }
         # Activate graphical-session.target so systemd user services (picom, etc.) start
         { command = "systemctl --user start graphical-session.target"; notification = false; }
         # { command = "dfzf-daemon"; notification = false; } # reboot to make the daemon running
