@@ -31,8 +31,6 @@ return {
       "lua",
       "luap",
       "make",
-      "markdown",
-      "markdown_inline",
       "meson",
       "nginx",
       "objc",
