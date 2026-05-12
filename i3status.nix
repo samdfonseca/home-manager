@@ -29,14 +29,23 @@
       "memory" = {
         position = 3;
         settings = {
-          format = "MEM %used / %available";
+          format = "MEM %used";
           threshold_degraded = "1G";
           format_degraded = "MEM < %available";
         };
       };
+      
+      "battery all" = {
+        position = 4;
+        settings = {
+          status_chr = "⚡ CHR";
+          status_bat = "🔋 BAT";
+          status_full = "FULL";
+        };
+      };
 
       "tztime local" = {
-        position = 4;
+        position = 5;
         settings = {
           format = "%Y-%m-%d %H:%M:%S";
         };
@@ -44,9 +53,8 @@
 
       # Disable default modules we don't need
       "ipv6".enable = false;
-      "wireless _first_".enable = false;
-      "ethernet _first_".enable = false;
-      "battery all".enable = false;
+      "wireless _first_".enable = true;
+      "ethernet _first_".enable = true;
       "load".enable = false;
     };
   };

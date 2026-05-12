@@ -44,19 +44,19 @@ in
 
   # Watches X11 RandR events and triggers `autorandr --change` on monitor
   # connect/disconnect.
-  systemd.user.services.autorandr-launcher = {
-    Unit = {
-      Description = "autorandr-launcher: trigger autorandr on RandR events";
-      PartOf = [ "graphical-session.target" ];
-      After = [ "graphical-session.target" ];
-    };
-    Service = {
-      ExecStart = "${pkgs.autorandr}/bin/autorandr-launcher";
-      Restart = "on-failure";
-      RestartSec = 2;
-    };
-    Install.WantedBy = [ "graphical-session.target" ];
-  };
+  # systemd.user.services.autorandr-launcher = {
+  #   Unit = {
+  #     Description = "autorandr-launcher: trigger autorandr on RandR events";
+  #     PartOf = [ "graphical-session.target" ];
+  #     After = [ "graphical-session.target" ];
+  #   };
+  #   Service = {
+  #     ExecStart = "${pkgs.autorandr}/bin/autorandr-launcher";
+  #     Restart = "on-failure";
+  #     RestartSec = 2;
+  #   };
+  #   Install.WantedBy = [ "graphical-session.target" ];
+  # };
 
   # Polls the ACPI lid state. On close with an external display connected,
   # re-runs autorandr (which will match an external-only profile by EDID); on

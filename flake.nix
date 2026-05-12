@@ -30,8 +30,8 @@
         inherit pkgs;
         modules = [ ./home.nix ];
         extraSpecialArgs = {
-          username = "samfonseca";
-          homeDirectory = "/home/samfonseca";
+          username = "safonse";
+          homeDirectory = "/home/ANT.AMAZON.COM/safonse";
           nvidiaGpu = {
             version = "580.126.09";
             sha256 = "09pchs4lk2h8zpm8q2fqky6296h54knqi1vwsihzdpwaizj57b2c";

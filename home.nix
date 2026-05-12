@@ -32,12 +32,17 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
+    pkgs.magika
+    pkgs.dconf-editor
+    pkgs.magika
+    pkgs.tree-sitter
     pkgs.inotify-tools
     pkgs.ripgrep
     pkgs.fd
     pkgs.jq
     pkgs.page
     pkgs.luajit
+    pkgs.luajitPackages.luarocks
     pkgs.bat
     pkgs.curl
     pkgs.htop

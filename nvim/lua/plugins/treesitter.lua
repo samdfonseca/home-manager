@@ -5,8 +5,30 @@
 ---@type LazySpec
 return {
   "nvim-treesitter/nvim-treesitter",
-  opts = {
-    ensure_installed = {
+  dependencies = {
+    {
+      "nvim-treesitter/nvim-treesitter-textobjects",
+      branch = "main",
+      commit = "851e865342e5a4cb1ae23d31caf6e991e1c99f1e",
+    },
+  },
+  branch = "main",
+  commit = "4916d6592ede8c07973490d9322f187e07dfefac",
+  lazy = false,
+  build = ":TSUpdate",
+  main = "nvim-treesitter",
+  config = function()
+    vim.api.nvim_create_autocmd("FileType", {
+      callback = function()
+        -- Enable treesitter highlighting and disable regex syntax
+        pcall(vim.treesitter.start)
+        -- Enable treesitter-based indentation
+        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+      end,
+    })
+  end,
+  init = function()
+    local ensureInstalled = {
       "bash",
       "c",
       "cmake",
@@ -31,6 +53,8 @@ return {
       "lua",
       "luap",
       "make",
+      "markdown",
+      "markdown_inline",
       "meson",
       "nginx",
       "objc",
@@ -50,8 +74,13 @@ return {
       "vim",
       "vimdoc",
       "xml",
-      "yaml"
-      -- add more arguments for adding more treesitter parsers
-    },
-  },
+      "yaml",
+    }
+    local alreadyInstalled = require("nvim-treesitter.config").get_installed()
+    local parsersToInstall = vim
+      .iter(ensureInstalled)
+      :filter(function(parser) return not vim.tbl_contains(alreadyInstalled, parser) end)
+      :totable()
+    require("nvim-treesitter").install(parsersToInstall)
+  end,
 }

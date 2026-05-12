@@ -1,4 +1,5 @@
--- lua/plugins/ansible.lua
+if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
+
 ---@type LazySpec
 return {
   -- Ensure the server is installed
@@ -20,8 +21,8 @@ return {
           settings = {
             ansible = {
               ansible = { path = "ansible" },        -- or absolute path if needed
-              ansibleLint = { enabled = true, path = "ansible-lint" },
-              executionEnvironment = { enabled = true }, -- set true if you want EE/docker/podman
+              -- ansibleLint = { enabled = true, path = "ansible-lint" },
+              executionEnvironment = { enabled = true, containerEngine = "docker" }, -- set true if you want EE/docker/podman
               python = { interpreterPath = "python3" },
             },
           },

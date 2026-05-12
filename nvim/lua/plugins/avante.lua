@@ -15,7 +15,7 @@ return {
     },
     providers = {
       bedrock = {
-        model = "us.anthropic.claude-opus-4-7",
+        model = "us.anthropic.claude-opus-4-6-v1",
         aws_region = "us-east-1",
         aws_profile = "prod",
         timeout = 30000,

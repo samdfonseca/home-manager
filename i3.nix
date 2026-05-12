@@ -41,7 +41,6 @@ in
 
       startup = [
         # { command = "/usr/bin/gnome-session"; notification = false; }
-        { command = "/usr/bin/gnome-keyring-daemon --start --components=secrets"; notification = false; }
         { command = "/usr/local/amazon/sbin/acmed-session.sh"; notification = false; }
         { command = "/usr/bin/user-hooks"; notification = false; }
         # Start XDG autostart .desktop files using dex
