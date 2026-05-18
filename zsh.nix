@@ -76,7 +76,8 @@ in
       bindkey -M vicmd 'k' up-line-or-history
       bindkey -M vicmd 'j' down-line-or-history
 
-      export PATH=$HOME/.toolbox/bin:$PATH
+      export PATH="$HOME/.toolbox/bin:$PATH"
+      export PATH="$HOME/.aim/mcp-servers:$PATH"
 
       # Mise (dev tool version manager)
       eval "$(mise activate zsh)"
