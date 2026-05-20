@@ -14,6 +14,7 @@
     ./ipython.nix
     ./gpg.nix
     ./pass.nix
+    inputs.amzn.homeModules.default
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -33,9 +34,8 @@
   # environment.
   home.packages = [
     pkgs.hyperfine
-    pkgs.magika
+    pkgs.magika-cli
     pkgs.dconf-editor
-    pkgs.magika
     pkgs.tree-sitter
     pkgs.inotify-tools
     pkgs.ripgrep
