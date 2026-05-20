@@ -94,6 +94,17 @@ in
 
       # Disable checksum database for internal modules
       export GOSUMDB=off
+
+      # BEGIN Ansible - mise
+      eval "$(mise activate)"
+      # END Ansible - mise
+
+      # Added by AIM CLI
+      export PATH="$HOME/.aim/mcp-servers:$PATH"
+
+      export PATH="$HOME/.local/bin:$PATH"
+
+      export PATH="$HOME/.toolbox/bin:$PATH"
     '';
   };
 }

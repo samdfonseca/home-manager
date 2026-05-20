@@ -14,7 +14,8 @@
     ./ipython.nix
     ./gpg.nix
     ./pass.nix
-    inputs.amzn.homeModules.default
+    ./gnome.nix
+    # inputs.amzn.homeModules.default
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -33,6 +34,8 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
+    pkgs.ddcutil
+    pkgs.ddcutil-service
     pkgs.hyperfine
     pkgs.magika-cli
     pkgs.dconf-editor
