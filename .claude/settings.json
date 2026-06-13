@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__slack-mcp__lookup_user",
+      "Bash(nix eval *)",
+      "Bash(nix flake show *)",
+      "Bash(nix flake metadata *)",
+      "Bash(tmux capture-pane *)",
+      "Bash(tmux list-windows *)",
+      "Bash(home-manager switch *)"
+    ]
+  }
+}

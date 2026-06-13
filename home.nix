@@ -7,6 +7,7 @@
     ./tmux.nix
     ./starship.nix
     ./i3.nix
+    ./i3-workspace-namer.nix
     ./i3status.nix
     ./autorandr.nix
     ./picom.nix
@@ -15,6 +16,7 @@
     ./gpg.nix
     ./pass.nix
     ./gnome.nix
+    # ./colima.nix
     # inputs.amzn.homeModules.default
   ];
   # Home Manager needs a bit of information about you and the paths it should
@@ -34,6 +36,11 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
+    pkgs.nushell
+    pkgs.sesh
+    pkgs.television
+    pkgs.jujutsu
+    pkgs.jjui
     pkgs.ddcutil
     pkgs.ddcutil-service
     pkgs.hyperfine
@@ -54,7 +61,6 @@
     pkgs.regclient
     pkgs.manifest-tool
     pkgs.solaar
-    pkgs.clang_22
     pkgs.bear
     pkgs.nodejs
     pkgs.lazygit
@@ -125,8 +131,6 @@
   #
   home.sessionVariables = {
     EDITOR = "nvim";
-    CC = "clang";
-    CXX = "clang++";
   };
 
   # Non-NixOS GPU support: makes host GPU drivers visible to Nix programs

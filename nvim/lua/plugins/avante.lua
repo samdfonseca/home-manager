@@ -1,9 +1,10 @@
+-- if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
+
 return {
-  "yetone/avante.nvim",
-  opts = {
+  "yetone/avante.nvim", opts = {
     provider = "bedrock",
     mode = "agentic",
-    auto_suggestions_provider = "bedrock-haiku",
+    auto_suggestions_provider = "bedrock",
     behaviour = {
       auto_suggestions = true,
     },
@@ -17,7 +18,7 @@ return {
       bedrock = {
         model = "us.anthropic.claude-opus-4-6-v1",
         aws_region = "us-east-1",
-        aws_profile = "prod",
+        aws_profile = "admin-dev",
         timeout = 30000,
       },
       ["bedrock-haiku"] = {

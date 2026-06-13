@@ -3,6 +3,52 @@
 let
   mod = "Mod1";
   refresh_i3status = "killall -SIGUSR1 i3status";
+
+  i3-workspace = pkgs.writeShellScript "i3-workspace" ''
+    set -euo pipefail
+    ACTION="$1"
+    WS_NUM="$2"
+
+    eval "$(${pkgs.xdotool}/bin/xdotool getmouselocation --shell)"
+
+    primary_x=999999
+    cursor_monitor_x=0
+
+    while IFS= read -r line; do
+      if [[ "$line" =~ ([0-9]+)x[0-9]+\+([0-9]+)\+[0-9]+ ]]; then
+        w="''${BASH_REMATCH[1]}"
+        ox="''${BASH_REMATCH[2]}"
+        if (( ox < primary_x )); then
+          primary_x=$ox
+        fi
+        if (( X >= ox && X < ox + w )); then
+          cursor_monitor_x=$ox
+        fi
+      fi
+    done < <(${pkgs.xorg.xrandr}/bin/xrandr --query | ${pkgs.gnugrep}/bin/grep -oP ' connected (primary )?\d+x\d+\+\d+\+\d+' | ${pkgs.gnugrep}/bin/grep -oP '\d+x\d+\+\d+\+\d+')
+
+    offset=0
+    if (( cursor_monitor_x != primary_x )); then
+      offset=10
+    fi
+
+    target=$(( WS_NUM + offset ))
+
+    case "$ACTION" in
+      switch) ${pkgs.i3}/bin/i3-msg "workspace number $target" ;;
+      move)   ${pkgs.i3}/bin/i3-msg "move container to workspace number $target" ;;
+    esac
+  '';
+
+  # Move focused container to the visible workspace on the other monitor.
+  i3-move-to-other-monitor = pkgs.writeShellScript "i3-move-to-other-monitor" ''
+    set -euo pipefail
+    focused=$(${pkgs.i3}/bin/i3-msg -t get_workspaces | ${pkgs.jq}/bin/jq -r '.[] | select(.focused) | .output')
+    target=$(${pkgs.i3}/bin/i3-msg -t get_workspaces | ${pkgs.jq}/bin/jq -r --arg f "$focused" '.[] | select(.visible and .output != $f) | .name' | head -n1)
+    if [ -n "$target" ]; then
+      ${pkgs.i3}/bin/i3-msg "move container to workspace $target"
+    fi
+  '';
 in
 {
   home.packages = [
@@ -55,10 +101,6 @@ in
         # Activate graphical-session.target so systemd user services (picom, etc.) start
         { command = "systemctl --user start graphical-session.target"; notification = false; }
         # { command = "dfzf-daemon"; notification = false; } # reboot to make the daemon running
-        { command = ''i3-msg rename workspace 1 to "1: Dev"''; }
-        { command = ''i3-msg rename workspace 2 to "2: Chrome"''; }
-        { command = ''i3-msg rename workspace 3 to "3: Slack"''; }
-        { command = ''i3-msg rename workspace 4 to "4: Terminal"''; }
         # { command = "copyq"; notification = false; }
       ];
 
@@ -94,10 +136,10 @@ in
         "${mod}+k" = "focus right";
         # "${mod}+l" = "focus up";
         # "${mod}+semicolon" = "focus right";
-        "${mod}+Left" = "focus left";
-        "${mod}+Down" = "focus down";
-        "${mod}+Up" = "focus up";
-        "${mod}+Right" = "focus right";
+        # "${mod}+Left" = "focus left";
+        # "${mod}+Down" = "focus down";
+        # "${mod}+Up" = "focus up";
+        # "${mod}+Right" = "focus right";
 
         # Move focused window
         "${mod}+Shift+j" = "move left";
@@ -130,32 +172,35 @@ in
         # Focus child container
         # "${mod}+d" = "focus child";
 
+        # Move focused container to the visible workspace on the other monitor
+        "${mod}+Shift+m" = "exec --no-startup-id ${i3-move-to-other-monitor}";
+
         # Screenshot (selection to clipboard)
         "Print" = "exec maim -s -u | xclip -selection clipboard -t image/png -i";
 
-        # Switch to workspace
-        "${mod}+1" = "workspace number 1";
-        "${mod}+2" = "workspace number 2";
-        "${mod}+3" = "workspace number 3";
-        "${mod}+4" = "workspace number 4";
-        "${mod}+5" = "workspace number 5";
-        "${mod}+6" = "workspace number 6";
-        "${mod}+7" = "workspace number 7";
-        "${mod}+8" = "workspace number 8";
-        "${mod}+9" = "workspace number 9";
-        "${mod}+0" = "workspace number 10";
+        # Switch to workspace (cursor-aware: primary monitor = 1-9, secondary = 11-19)
+        "${mod}+1" = "exec --no-startup-id ${i3-workspace} switch 1";
+        "${mod}+2" = "exec --no-startup-id ${i3-workspace} switch 2";
+        "${mod}+3" = "exec --no-startup-id ${i3-workspace} switch 3";
+        "${mod}+4" = "exec --no-startup-id ${i3-workspace} switch 4";
+        "${mod}+5" = "exec --no-startup-id ${i3-workspace} switch 5";
+        "${mod}+6" = "exec --no-startup-id ${i3-workspace} switch 6";
+        "${mod}+7" = "exec --no-startup-id ${i3-workspace} switch 7";
+        "${mod}+8" = "exec --no-startup-id ${i3-workspace} switch 8";
+        "${mod}+9" = "exec --no-startup-id ${i3-workspace} switch 9";
+        "${mod}+0" = "exec --no-startup-id ${i3-workspace} switch 10";
 
-        # Move focused container to workspace
-        "${mod}+Shift+1" = "move container to workspace number 1";
-        "${mod}+Shift+2" = "move container to workspace number 2";
-        "${mod}+Shift+3" = "move container to workspace number 3";
-        "${mod}+Shift+4" = "move container to workspace number 4";
-        "${mod}+Shift+5" = "move container to workspace number 5";
-        "${mod}+Shift+6" = "move container to workspace number 6";
-        "${mod}+Shift+7" = "move container to workspace number 7";
-        "${mod}+Shift+8" = "move container to workspace number 8";
-        "${mod}+Shift+9" = "move container to workspace number 9";
-        "${mod}+Shift+0" = "move container to workspace number 10";
+        # Move focused container to workspace (cursor-aware)
+        "${mod}+Shift+1" = "exec --no-startup-id ${i3-workspace} move 1";
+        "${mod}+Shift+2" = "exec --no-startup-id ${i3-workspace} move 2";
+        "${mod}+Shift+3" = "exec --no-startup-id ${i3-workspace} move 3";
+        "${mod}+Shift+4" = "exec --no-startup-id ${i3-workspace} move 4";
+        "${mod}+Shift+5" = "exec --no-startup-id ${i3-workspace} move 5";
+        "${mod}+Shift+6" = "exec --no-startup-id ${i3-workspace} move 6";
+        "${mod}+Shift+7" = "exec --no-startup-id ${i3-workspace} move 7";
+        "${mod}+Shift+8" = "exec --no-startup-id ${i3-workspace} move 8";
+        "${mod}+Shift+9" = "exec --no-startup-id ${i3-workspace} move 9";
+        "${mod}+Shift+0" = "exec --no-startup-id ${i3-workspace} move 10";
 
         # Reload / restart / exit
         "${mod}+Shift+c" = "reload";
