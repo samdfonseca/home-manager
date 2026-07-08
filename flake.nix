@@ -20,6 +20,14 @@
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
+      pkgsUnfree = import nixpkgs {
+        inherit system;
+        config = {
+          allowUnfreePredicate = pkg:
+            builtins.elem (nixpkgs.lib.getName pkg) [ "nvidia-x11" ];
+          nvidia.acceptLicense = true;
+        };
+      };
     in
     {
       homeConfigurations."samf-hp-elitebook" = home-manager.lib.homeManagerConfiguration {
@@ -32,14 +40,15 @@
         };
       };
       homeConfigurations."samf-nzxt" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
+        pkgs = pkgsUnfree;
         modules = [ ./home.nix ];
         extraSpecialArgs = {
           username = "safonse";
           homeDirectory = "/home/ANT.AMAZON.COM/safonse";
           nvidiaGpu = {
-            version = "580.126.09";
-            sha256 = "09pchs4lk2h8zpm8q2fqky6296h54knqi1vwsihzdpwaizj57b2c";
+            enable = true;
+            version = "590.48.01";
+            sha256 = "sha256-ueL4BpN4FDHMh/TNKRCeEz3Oy1ClDWto1LO/LWlr1ok=";
           };
         };
       };
