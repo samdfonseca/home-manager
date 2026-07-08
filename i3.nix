@@ -4,6 +4,13 @@ let
   mod = "Mod1";
   refresh_i3status = "killall -SIGUSR1 i3status";
 
+  i3-autorandr-picker = pkgs.writeShellScript "i3-autorandr-picker" ''
+    set -eou pipefail
+    read profile < <(autorandr --list | rofi -dmenu)
+
+    autorandr --load "$profile"
+  '';
+
   i3-workspace = pkgs.writeShellScript "i3-workspace" ''
     set -euo pipefail
     ACTION="$1"
@@ -38,6 +45,42 @@ let
       switch) ${pkgs.i3}/bin/i3-msg "workspace number $target" ;;
       move)   ${pkgs.i3}/bin/i3-msg "move container to workspace number $target" ;;
     esac
+  '';
+
+  # Enable all connected monitors arranged horizontally, laptop (eDP) leftmost.
+  i3-monitors-horizontal = pkgs.writeShellScript "i3-monitors-horizontal" ''
+    set -euo pipefail
+    mapfile -t outputs < <(${pkgs.xorg.xrandr}/bin/xrandr --query | ${pkgs.gnugrep}/bin/grep -oP '^\S+(?= connected)')
+
+    edp=()
+    others=()
+    for o in "''${outputs[@]}"; do
+      if [[ "$o" == eDP* ]]; then
+        edp+=("$o")
+      else
+        others+=("$o")
+      fi
+    done
+
+    sorted=("''${edp[@]}" "''${others[@]}")
+
+    cmd="${pkgs.xorg.xrandr}/bin/xrandr"
+    prev=""
+    for o in "''${sorted[@]}"; do
+      cmd+=" --output $o --auto"
+      if [ -n "$prev" ]; then
+        cmd+=" --right-of $prev"
+      fi
+      prev="$o"
+    done
+
+    eval "$cmd"
+  '';
+
+  # Popup with details about the active network connection (bound to a bar click).
+  wifi-details = pkgs.writeShellScript "wifi-details" ''
+    details=$(${pkgs.networkmanager}/bin/nmcli -t -f NAME,DEVICE,TYPE connection show --active)
+    ${pkgs.libnotify}/bin/notify-send "Network" "''${details:-No active connection}"
   '';
 
   # Move focused container to the visible workspace on the other monitor.
@@ -100,6 +143,7 @@ in
         { command = "systemctl --user import-environment DISPLAY XAUTHORITY"; notification = false; }
         # Activate graphical-session.target so systemd user services (picom, etc.) start
         { command = "systemctl --user start graphical-session.target"; notification = false; }
+        { command = "systemctl --user start picom.service"; notification = false; }
         # { command = "dfzf-daemon"; notification = false; } # reboot to make the daemon running
         # { command = "copyq"; notification = false; }
       ];
@@ -129,7 +173,8 @@ in
         "${mod}+Shift+q" = "kill";
 
         # Program launcher
-        "${mod}+d" = "exec --no-startup-id i3-dmenu-desktop";
+        # "${mod}+d" = "exec --no-startup-id i3-dmenu-desktop";
+        "${mod}+d" = ''exec "rofi -show combi -combi-modes drun,run -modes combi"'';
 
         # Change focus
         "${mod}+j" = "focus left";
@@ -175,8 +220,12 @@ in
         # Move focused container to the visible workspace on the other monitor
         "${mod}+Shift+m" = "exec --no-startup-id ${i3-move-to-other-monitor}";
 
+        # Enable all monitors arranged horizontally (laptop leftmost)
+        "${mod}+Shift+Ctrl+d" = "exec --no-startup-id ${i3-monitors-horizontal}";
+        "${mod}+Shift+Ctrl+s" = "exec --no-startup-id ${i3-autorandr-picker}";
+
         # Screenshot (selection to clipboard)
-        "Print" = "exec maim -s -u | xclip -selection clipboard -t image/png -i";
+        "Print" = "exec maim -s -u | tee ~/Pictures/Screenshots/$(date +%s).png | xclip -selection clipboard -t image/png -i";
 
         # Switch to workspace (cursor-aware: primary monitor = 1-9, secondary = 11-19)
         "${mod}+1" = "exec --no-startup-id ${i3-workspace} switch 1";
@@ -233,7 +282,7 @@ in
             names = [ "SauceCodePro Nerd Font Mono Regular" ];
             size = 12.0;
           };
-          statusCommand = "i3status";
+          statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ${config.home.homeDirectory}/.config/i3status-rust/config-default.toml";
         }
       ];
     };
@@ -244,9 +293,9 @@ in
       tiling_drag modifier titlebar
 
       # Set ultrawide to 100Hz
-      exec_always --no-startup-id xrandr --output DP-2 --mode 3440x1440 --rate 100
+      # exec_always --no-startup-id xrandr --output DP-2 --mode 3440x1440 --rate 100
 
-      bindcode ctrl+d exec rofi -show combi -combi-modes drun,run -modes combi
+      # bindsym ctrl+d exec "rofi -show combi -combi-modes drun,run -modes combi"
 
       # for_window [app_id="^launcher$"] floating enable, sticky enable, resize set 30 ppt 60 ppt, border pixel 10
       # for_window [app_id="^launcher$"] floating enable, sticky enable
@@ -270,5 +319,38 @@ in
 
       # for_window [class="^dfzf-popup$"] floating enable, sticky enable, border pixel 6, exec dfzf-resize 65
     '';
+  };
+
+  programs.i3status-rust = {
+    enable = true;
+    bars.default = {
+      blocks = [
+        {
+          block = "net";
+          format = " $icon {$signal_strength $ssid|$ip} ";
+          # Left-click the network section for active-connection details.
+          click = [
+            {
+              button = "left";
+              cmd = "${wifi-details}";
+            }
+          ];
+        }
+        {
+          block = "sound";
+          click = [
+            { button = "left"; cmd = "pavucontrol"; }
+          ];
+        }
+        {
+          block = "battery";
+        }
+        {
+          block = "time";
+          interval = 5;
+          format = " $timestamp.datetime(f:'%a %d/%m %R') ";
+        }
+      ];
+    };
   };
 }

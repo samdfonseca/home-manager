@@ -18,22 +18,6 @@
           device = "pulse";
         };
       };
-
-      "disk /" = {
-        position = 2;
-        settings = {
-          format = "/ %avail";
-        };
-      };
-
-      "memory" = {
-        position = 3;
-        settings = {
-          format = "MEM %used";
-          threshold_degraded = "1G";
-          format_degraded = "MEM < %available";
-        };
-      };
       
       "battery all" = {
         position = 4;
@@ -53,8 +37,18 @@
 
       # Disable default modules we don't need
       "ipv6".enable = false;
-      "wireless _first_".enable = true;
-      "ethernet _first_".enable = true;
+      "wireless _first_" = {
+        position = 2;
+        settings = {
+          format_up = "W: %ip";
+        };
+      };
+      "ethernet _first_" = {
+        position = 3;
+        settings = {
+          format_up = "E: %ip";
+        };
+      };
       "load".enable = false;
     };
   };

@@ -8,23 +8,25 @@ let
     import i3ipc
 
     CLASS_NAMES = {
-        "Google-chrome": "Chrome",
+        "google-chrome": "Chrome",
         "firefox": "Firefox",
-        "Slack": "Slack",
+        "slack": "Slack",
         "kitty": "Terminal",
-        "Alacritty": "Terminal",
+        "alacritty": "Terminal",
         "code": "VSCode",
         "obsidian": "Obsidian",
-        "Spotify": "Spotify",
+        "spotify": "Spotify",
         "discord": "Discord",
-        "Gimp": "GIMP",
+        "gimp": "GIMP",
         "thunderbird": "Thunderbird",
+        "org.remmina.remmina": "Remmina",
+        "org.gnome.evolution": "Evolution",
     }
 
     def friendly_name(con):
         wm_class = con.window_class
-        if wm_class and wm_class in CLASS_NAMES:
-            return CLASS_NAMES[wm_class]
+        if wm_class and wm_class.lower() in CLASS_NAMES:
+            return CLASS_NAMES[wm_class.lower()]
         if wm_class:
             return wm_class
         return None

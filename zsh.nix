@@ -23,10 +23,13 @@ in
     defaultKeymap = "viins";
 
     initContent = ''
+      # module_path+=( "/home/ANT.AMAZON.COM/safonse/.local/share/zinit/module/Src" )
+      # zmodload zdharma_continuum/zinit
+
       # When connected via SSH with agent forwarding, add keys to the
       # forwarded agent rather than letting keychain start its own.
       if [[ -n "''${SSH_CONNECTION}" && -n "''${SSH_AUTH_SOCK}" ]]; then
-        ssh-add -l &>/dev/null || ssh-add ~/.ssh/id_ed25519 2>/dev/null
+        ssh-add -l &>/dev/null || ssh-add ~/.ssh/id_ecdsa 2>/dev/null
       fi
 
       # Reduce mode switch delay (default is 0.4s)
@@ -50,14 +53,6 @@ in
       # Prevent syntax-highlighting from stat-checking paths on slow NFS mount
       ZSH_HIGHLIGHT_DIRS_BLACKLIST+=(/mnt/nas_mnt)
 
-      # Snippets (OMZ libraries/plugins loaded as snippets)
-      zinit snippet OMZP::git
-      zinit snippet OMZP::command-not-found
-      zinit snippet OMZP::eza
-      zinit snippet OMZP::aws
-      zinit snippet OMZP::uv
-      zinit snippet OMZP::rust
-
       # Completions
       autoload -Uz compinit && compinit
       autoload -Uz bashcompinit && bashcompinit
@@ -75,9 +70,6 @@ in
       # vicmd: j/k → basic sequential history navigation
       bindkey -M vicmd 'k' up-line-or-history
       bindkey -M vicmd 'j' down-line-or-history
-
-      export PATH="$HOME/.toolbox/bin:$PATH"
-      export PATH="$HOME/.aim/mcp-servers:$PATH"
 
       # Mise (dev tool version manager)
       eval "$(mise activate zsh)"
@@ -105,6 +97,18 @@ in
       export PATH="$HOME/.local/bin:$PATH"
 
       export PATH="$HOME/.toolbox/bin:$PATH"
+
+      export KREW_ROOT="$HOME/.krew"
+      export PATH="$KREW_ROOT/bin:$PATH"
+
+      # Snippets (OMZ libraries/plugins loaded as snippets)
+      zinit snippet OMZP::git
+      zinit snippet OMZP::command-not-found
+      zinit snippet OMZP::eza
+      zinit snippet OMZP::aws
+      zinit snippet OMZP::uv
+      zinit snippet OMZP::rust
+      zinit snippet OMZP::kubectl
     '';
   };
 }

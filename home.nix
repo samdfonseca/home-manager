@@ -36,6 +36,14 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
+    pkgs.litecli
+    pkgs.vcpkg
+    pkgs.keeweb
+    pkgs.keepmenu
+    pkgs.keepassxc-go
+    pkgs.keepassxc
+    pkgs.kpcli
+    pkgs.dzen2
     pkgs.nushell
     pkgs.sesh
     pkgs.television
