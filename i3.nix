@@ -111,6 +111,18 @@ in
     EndSection
   '';
 
+  # In a pure i3 session there is no gnome-shell, so the xdg-desktop-portal
+  # FileChooser backend (used by Chrome downloads/Save-as, Electron apps like
+  # FortiClient, and GTK Save/Open dialogs) must be the GTK one. Both
+  # gnome.portal and gtk.portal ship tagged `UseIn=gnome`, so under
+  # `XDG_CURRENT_DESKTOP=i3` nothing auto-matches and file dialogs hang.
+  # Explicitly prefer the gtk backend for the i3 desktop (an explicit
+  # preference overrides the UseIn hint).
+  xdg.configFile."xdg-desktop-portal/i3-portals.conf".text = ''
+    [preferred]
+    default=gtk
+  '';
+
   xsession.windowManager.i3 = {
     enable = true;
 
@@ -120,8 +132,8 @@ in
       # font pango:monospace 10
       # font pango:SauceCodePro Nerd Font Mono Regular 10
       fonts = {
-        names = [ "SauceCodePro Nerd Font Mono Regular" ];
-        size = 12.0;
+        names = [ "JetBrains Mono" ];
+        size = 10.0;
       };
 
       floating.modifier = mod;
@@ -279,8 +291,8 @@ in
       bars = [
         {
           fonts = {
-            names = [ "SauceCodePro Nerd Font Mono Regular" ];
-            size = 12.0;
+            names = [ "JetBrains Mono" ];
+            size = 9.0;
           };
           statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ${config.home.homeDirectory}/.config/i3status-rust/config-default.toml";
         }

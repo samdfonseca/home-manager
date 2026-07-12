@@ -14,6 +14,7 @@ return {
   { import = "astrocommunity.pack.docker" },
   { import = "astrocommunity.pack.go" },
   { import = "astrocommunity.pack.lua" },
+  { import = "astrocommunity.pack.nix" },
   -- { import = "astrocommunity.pack.python-ruff" },
   -- { import = "astrocommunity.pack.ruby" },
   { import = "astrocommunity.pack.rust" },
