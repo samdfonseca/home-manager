@@ -132,8 +132,8 @@ in
       # font pango:monospace 10
       # font pango:SauceCodePro Nerd Font Mono Regular 10
       fonts = {
-        names = [ "JetBrains Mono" ];
-        size = 10.0;
+        names = [ "SauceCodePro Nerd Font Mono Regular" ];
+        size = 12.0;
       };
 
       floating.modifier = mod;
@@ -291,8 +291,8 @@ in
       bars = [
         {
           fonts = {
-            names = [ "JetBrains Mono" ];
-            size = 9.0;
+            names = [ "SauceCodePro Nerd Font Mono Regular" ];
+            size = 10.0;
           };
           statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ${config.home.homeDirectory}/.config/i3status-rust/config-default.toml";
         }

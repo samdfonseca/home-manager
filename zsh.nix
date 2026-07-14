@@ -56,7 +56,6 @@ in
       # Completions
       autoload -Uz compinit && compinit
       autoload -Uz bashcompinit && bashcompinit
-      zinit cdreplay -q
 
       # Exclude slow NFS mount from completion
       zstyle ':completion:*' ignored-patterns '/mnt/nas_mnt|/mnt/nas_mnt/*'
@@ -109,6 +108,10 @@ in
       zinit snippet OMZP::uv
       zinit snippet OMZP::rust
       zinit snippet OMZP::kubectl
+
+      # Replay captured completions AFTER all plugins/snippets load, so
+      # completions registered by later snippets (e.g. aws) aren't missed.
+      zinit cdreplay -q
     '';
   };
 }

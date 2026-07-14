@@ -65,6 +65,7 @@
     pkgs.page
     pkgs.luajit
     pkgs.luajitPackages.luarocks
+    pkgs.luajitPackages.fennel
     pkgs.bat
     pkgs.curl
     pkgs.htop

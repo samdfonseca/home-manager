@@ -6,7 +6,7 @@
     enableZshIntegration = true;
     settings = {
       # Only show these modules — everything else is implicitly hidden
-      format = "$directory$git_branch$git_status$character";
+      format = "$hostname$directory$git_branch$git_status$character";
 
       directory = {
         truncation_length = 3;
@@ -25,6 +25,10 @@
         success_symbol = "[❯](green)";
         error_symbol = "[❯](red)";
         vimcmd_symbol = "[❮](purple)";
+      };
+
+      hostname = {
+        ssh_only = true;
       };
     };
   };
