@@ -16,8 +16,8 @@
     ./gpg.nix
     ./pass.nix
     ./gnome.nix
+    ./toolbox.nix
     # ./colima.nix
-    # inputs.amzn.homeModules.default
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -66,6 +66,8 @@
     pkgs.luajit
     pkgs.luajitPackages.luarocks
     pkgs.luajitPackages.fennel
+    pkgs.luajitPackages.readline
+    pkgs.luajitPackages.luaprompt
     pkgs.bat
     pkgs.curl
     pkgs.htop

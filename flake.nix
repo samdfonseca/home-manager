@@ -8,10 +8,15 @@
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    amzn = {
+      url = "git+ssh://git.amazon.com:2222/pkg/AmznNix-Community";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
   };
 
   outputs =
-    { nixpkgs, home-manager, ... }:
+    { nixpkgs, home-manager, amzn, ... }:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -27,7 +32,7 @@
     {
       homeConfigurations."samf-hp-elitebook" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-        modules = [ ./home.nix ];
+        modules = [ amzn.homeModules.default ./home.nix ];
         extraSpecialArgs = {
           username = "safonse";
           homeDirectory = "/home/ANT.AMAZON.COM/safonse";
@@ -36,7 +41,7 @@
       };
       homeConfigurations."samf-nzxt" = home-manager.lib.homeManagerConfiguration {
         pkgs = pkgsUnfree;
-        modules = [ ./home.nix ];
+        modules = [ amzn.homeModules.default ./home.nix ];
         extraSpecialArgs = {
           username = "safonse";
           homeDirectory = "/home/ANT.AMAZON.COM/safonse";
