@@ -28,6 +28,17 @@ in
     export PATH="${config.home.profileDirectory}/bin:$PATH"
   '';
 
+  # builder-mcp is an MCP dep of several installed agents. aim installs it via a
+  # plain `toolbox install builder-mcp` (no --force). toolbox creates a
+  # ~/.local/bin/builder-mcp symlink but does NOT remove it on uninstall — so
+  # when aim re-installs the bundle, the orphaned symlink is seen as "not
+  # toolbox-managed" and the non-force install fails. aim then can't create it
+  # itself. Removing the file lets aim install cleanly (it recreates it).
+  # Runs before the aim activation entry (which is entryAfter "toolboxTools").
+  home.activation.fixBuilderMcpOrphan = lib.hm.dag.entryBefore [ "toolboxTools" ] ''
+    run rm -f "$HOME/.local/bin/builder-mcp"
+  '';
+
   programs.toolbox = {
     enable = true;
     currentPlatform = "ubuntu";
@@ -58,8 +69,9 @@ in
       brazilcli.enable = true;
       brazil-graph.enable = true;
       brazil-third-party-tool.enable = true;
-      # builder-mcp.enable = true;
-      # builder-mcp.extraFlags = [ "--force" ];
+      # builder-mcp intentionally NOT enabled here: it's pulled in as an MCP dep
+      # by agents (chorus, AmazonBuilderCoreAIAgents) and installed by aim. See
+      # the fixBuilderMcpOrphan activation entry below for why.
       code-search.enable = true;
       cr.enable = true;
       create.enable = true;
