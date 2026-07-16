@@ -72,6 +72,11 @@
     pkgs.curl
     pkgs.htop
     pkgs.deno
+    # aim validates MCP servers with `which uvx` during activation, where mise
+    # isn't active — so both uvx and a `which` binary must be on the profile
+    # (see toolbox.nix's uvxOnPath activation entry that puts the profile on PATH).
+    pkgs.uv
+    pkgs.which
     pkgs.regclient
     pkgs.manifest-tool
     pkgs.solaar

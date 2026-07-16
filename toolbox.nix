@@ -1,4 +1,4 @@
-{ ... }:
+{ config, lib, ... }:
 
 # Declarative Builder Toolbox + AIM management via AmznNix-Community's home
 # module (provides `programs.toolbox`, wired in via flake.nix modules list).
@@ -19,6 +19,15 @@ let
   };
 in
 {
+  # aim validates uvx-based MCP servers (e.g. aws-api-mcp) by running `which
+  # uvx` during activation. home-manager's activation PATH is a fixed set of nix
+  # store dirs — it has neither `which` nor `uvx`, and mise isn't active. So we
+  # put the nix profile bin (which supplies pkgs.uv's uvx and pkgs.which) on PATH
+  # before the toolbox/aim entries run (they're inline in the same shell).
+  home.activation.uvxOnPath = lib.hm.dag.entryBefore [ "installPackages" ] ''
+    export PATH="${config.home.profileDirectory}/bin:$PATH"
+  '';
+
   programs.toolbox = {
     enable = true;
     currentPlatform = "ubuntu";
