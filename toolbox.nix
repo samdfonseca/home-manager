@@ -38,7 +38,7 @@ in
     registries = {
       aws-outlook-mcp = reg "s3://buildertoolbox-awsoutlook-mcp-us-west-2/tools.json";
       bt-rust = reg "s3://buildertoolbox-registry-bt-rust-registry-us-west-2/tools.json";
-      crossborder-mcp = reg "s3://cross-border-mcp-prod-registry-bucket-us-west-2/tools.json";
+      # crossborder-mcp = reg "s3://cross-border-mcp-prod-registry-bucket-us-west-2/tools.json";
       inner-loop = reg "s3://toolbox-inner-loop-registry-us-west-2/tools.json";
       mcp-spec-studio-server-tools = reg "s3://buildertoolbox-registry-mcp-spec-studio-server-us-west-2/tools.json";
       miscellaneous = reg "s3://buildertoolbox-registry-secondary-registry-us-west-2/tools.json";
@@ -58,8 +58,8 @@ in
       brazilcli.enable = true;
       brazil-graph.enable = true;
       brazil-third-party-tool.enable = true;
-      builder-mcp.enable = true;
-      builder-mcp.extraFlags = [ "--force" ];
+      # builder-mcp.enable = true;
+      # builder-mcp.extraFlags = [ "--force" ];
       code-search.enable = true;
       cr.enable = true;
       create.enable = true;
@@ -96,7 +96,7 @@ in
         aws-api-mcp = { };
         aws-outlook-mcp = { };
         aws-sharepoint-mcp = { };
-        crossborder-mcp = { };
+        # crossborder-mcp = { };
         local-chorus-mcp = { };
         orca-mcp = { };
         pippin-mcp = { };
