@@ -96,7 +96,6 @@ in
         aws-api-mcp = { };
         aws-outlook-mcp = { };
         aws-sharepoint-mcp = { };
-        builder-mcp = { };
         crossborder-mcp = { };
         local-chorus-mcp = { };
         orca-mcp = { };
