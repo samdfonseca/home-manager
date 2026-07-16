@@ -113,7 +113,6 @@ in
         local-chorus-mcp = { };
         orca-mcp = { };
         pippin-mcp = { };
-        quickwork-outlook-mcp = { };
         sage-plus-service-mcp = { };
         slack-mcp = { };
         spec-studio-mcp = { };
