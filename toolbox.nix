@@ -131,11 +131,13 @@ in
         MidwayClientSuiteIntegrationAgents.versionSet = "MidwayClientSuiteIntegrationAgents/development";
       };
 
-      # Claude Code plugins; namespaces select which sub-plugins to install.
+      # Claude Code plugins. Only set `namespaces` for packages that declare
+      # them — AEE-SE-Kiro-Agents and ChorusAIM declare none (install as a single
+      # `-all` plugin), so passing --namespaces to them is rejected.
       plugins = {
-        AEE-SE-Kiro-Agents.namespaces = [ "all" ];
+        AEE-SE-Kiro-Agents = { };
         AmazonBuilderCoreAIAgents.namespaces = [ "core" "pipeline-assistant" ];
-        ChorusAIM.namespaces = [ "all" ];
+        ChorusAIM = { };
       };
     };
   };
