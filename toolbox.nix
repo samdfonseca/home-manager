@@ -73,6 +73,7 @@ in
       # won't touch ~/.kiro/settings/cli.json.
       kiro-cli.enable = true;
       kiro-cli.extraFlags = [ "--force" ];
+      kiro.cli.enable = true;
       lpt.enable = true;
       mcp-registry.enable = true;
       personal-stacks.enable = true;
