@@ -69,6 +69,10 @@ in
       hydra.enable = true;
       inner-loop.enable = true;
       javari.enable = true;
+      # Kiro CLI (required by the aim module). Settings left unmanaged so nix
+      # won't touch ~/.kiro/settings/cli.json.
+      kiro-cli.enable = true;
+      kiro-cli.extraFlags = [ "--force" ];
       lpt.enable = true;
       mcp-registry.enable = true;
       personal-stacks.enable = true;
@@ -77,11 +81,6 @@ in
       tao.enable = true;
       wasabi.enable = true;
     };
-
-    # Kiro CLI (required by the aim module). Settings left unmanaged so nix
-    # won't touch ~/.kiro/settings/cli.json.
-    kiro.cli.enable = true;
-    kiro.extraFlags = [ "--force" ];
 
     # AIM (AI Integration Manager). All MCP servers resolve via the default
     # amazon-internal-mcp-registry, so no per-server registry override needed.
