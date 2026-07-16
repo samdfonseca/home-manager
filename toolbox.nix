@@ -73,7 +73,6 @@ in
       # won't touch ~/.kiro/settings/cli.json.
       kiro-cli.enable = true;
       kiro-cli.extraFlags = [ "--force" ];
-      kiro.cli.enable = true;
       lpt.enable = true;
       mcp-registry.enable = true;
       personal-stacks.enable = true;
@@ -82,6 +81,8 @@ in
       tao.enable = true;
       wasabi.enable = true;
     };
+
+    kiro.cli.enable = true;
 
     # AIM (AI Integration Manager). All MCP servers resolve via the default
     # amazon-internal-mcp-registry, so no per-server registry override needed.
