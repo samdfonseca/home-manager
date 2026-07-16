@@ -88,7 +88,6 @@ in
     aim = {
       enable = true;
 
-      extraFlags = ["--force"];
       mcpServers = {
         andes-mcp = { };
         alloy-iceberg-fua-mcp = { };
