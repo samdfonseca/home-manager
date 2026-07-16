@@ -52,7 +52,6 @@ in
     # by the higher-level programs.toolbox.{aim,kiro} modules below.)
     tools = {
       ada.enable = true;
-      axe.enable = true;
       barium.enable = true;
       batscli.enable = true;
       bemol.enable = true;
@@ -60,6 +59,7 @@ in
       brazil-graph.enable = true;
       brazil-third-party-tool.enable = true;
       builder-mcp.enable = true;
+      builder-mcp.extraFlags = [ "--force" ];
       code-search.enable = true;
       cr.enable = true;
       create.enable = true;
@@ -81,12 +81,14 @@ in
     # Kiro CLI (required by the aim module). Settings left unmanaged so nix
     # won't touch ~/.kiro/settings/cli.json.
     kiro.cli.enable = true;
+    kiro.extraFlags = [ "--force" ];
 
     # AIM (AI Integration Manager). All MCP servers resolve via the default
     # amazon-internal-mcp-registry, so no per-server registry override needed.
     aim = {
       enable = true;
 
+      extraFlags = ["--force"];
       mcpServers = {
         andes-mcp = { };
         alloy-iceberg-fua-mcp = { };
