@@ -39,6 +39,19 @@
           nvidiaGpu = null;
         };
       };
+      homeConfigurations."samf-thinkpad-p1" = home-manager.lib.homeManagerConfiguration {
+        pkgs = pkgsUnfree;
+        modules = [ amzn.homeModules.default ./home.nix ];
+        extraSpecialArgs = {
+          username = "safonse";
+          homeDirectory = "/home/ANT.AMAZON.COM/safonse";
+          nvidiaGpu = {
+            enable = true;
+            version = "590.48.01";
+            sha256 = "sha256-ueL4BpN4FDHMh/TNKRCeEz3Oy1ClDWto1LO/LWlr1ok=";
+          };
+        };
+      };
       homeConfigurations."samf-nzxt" = home-manager.lib.homeManagerConfiguration {
         pkgs = pkgsUnfree;
         modules = [ amzn.homeModules.default ./home.nix ];

@@ -4,6 +4,7 @@
   imports = [
     ./zsh.nix
     ./kitty.nix
+
     ./tmux.nix
     ./starship.nix
     ./i3.nix
@@ -17,6 +18,7 @@
     ./pass.nix
     ./gnome.nix
     ./toolbox.nix
+    ./keyd.nix
     # ./colima.nix
   ];
   # Home Manager needs a bit of information about you and the paths it should
@@ -36,6 +38,8 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
+    pkgs.go
+    pkgs.mise
     pkgs.nixd
     pkgs.statix
     pkgs.deadnix
