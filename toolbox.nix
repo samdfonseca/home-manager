@@ -78,6 +78,7 @@ in
       devspaces.enable = true;
       gitlfs.enable = true;
       gordian-knot.enable = true;
+      harmonycli.enable = true;
       hydra.enable = true;
       inner-loop.enable = true;
       javari.enable = true;
@@ -111,6 +112,8 @@ in
         builder-mcp = { };
         crossborder-mcp = { };
         local-chorus-mcp = { };
+        # local-knowledge-mcp intentionally omitted: it only publishes osx /
+        # osx_arm64 / windows builds, so it can't install on this Linux host.
         orca-mcp = { };
         pippin-mcp = { };
         sage-plus-service-mcp = { };

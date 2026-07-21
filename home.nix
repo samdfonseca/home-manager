@@ -38,6 +38,10 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
+    pkgs.ldc
+    pkgs.dtui
+    pkgs.fastfetch
+    pkgs.kubectl
     pkgs.go
     pkgs.mise
     pkgs.nixd
@@ -154,6 +158,13 @@
   #
   home.sessionVariables = {
     EDITOR = "nvim";
+  };
+
+  # Expose nix-profile and local bins to the systemd user session so
+  # GNOME Shell (which reads environment.d, not shell rc files) can
+  # resolve TryExec= in .desktop entries and show apps in the launcher.
+  systemd.user.sessionVariables = {
+    PATH = "${homeDirectory}/.nix-profile/bin:${homeDirectory}/.local/bin:\${PATH}";
   };
 
   # Non-NixOS GPU support: makes host GPU drivers visible to Nix programs

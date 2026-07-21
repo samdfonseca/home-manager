@@ -112,6 +112,8 @@ in
       # Replay captured completions AFTER all plugins/snippets load, so
       # completions registered by later snippets (e.g. aws) aren't missed.
       zinit cdreplay -q
+
+      source "/home/ANT.AMAZON.COM/safonse/.local/share/abc/abc.sh"
     '';
   };
 }
