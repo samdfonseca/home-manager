@@ -56,6 +56,7 @@ in
       orca-mcp = reg "s3://buildertoolbox-registry-orca-mcp-us-west-2/tools.json";
       orcha = reg "s3://buildertoolbox-registry-orcha-us-west-2/tools.json";
       pippin-mcp-server-tools = reg "s3://buildertoolbox-registry-pippin-mcp-server-us-west-2/tools.json";
+      tunnels = reg "s3://tunnels-toolbox-prod/tools.json";
       wasabi-registry = reg "s3://prod-wasabi-vending-registry/tools.json";
     };
 
@@ -92,6 +93,7 @@ in
       python-migration-tools.enable = true;
       q.enable = true;
       tao.enable = true;
+      tunnels.enable = true;
       wasabi.enable = true;
     };
 
